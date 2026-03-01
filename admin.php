@@ -15,11 +15,22 @@ if (!isset($_SESSION['admin_post_token'])) {
     }
 }
 
-require 'config.php';
-// GET ALL POSTS
-$stmtpost = $pdo->query('SELECT id, title, slug, content, image FROM post');
+// Version démo sans base de données
+$posts = [
+    [
+        'id' => 1,
+        'title' => 'Bienvenue sur Web Security',
+        'slug' => 'bienvenue-web-security',
+        'content' => 'Ceci est une version démo du site.',
+        'image' => 'default.jpg'
+    ]
+];
 
-$posts = $stmtpost->fetchAll(PDO::FETCH_ASSOC);
+// Affichage de message pour la BD
+$db_message = '<div style="background: #fff3cd; padding: 15px; margin: 10px 0; border-radius: 5px; border: 1px solid #ffc107;">
+    <strong>⚠️ Mode Démo</strong><br>
+    Les création/modification/suppression de posts nécessitent une base de données MySQL connectée.
+</div>';
 
 // CREATE / UPDATE
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

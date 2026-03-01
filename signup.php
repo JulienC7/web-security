@@ -11,22 +11,12 @@ if (isset($_POST['password']) && !empty($_POST['password'])) {
 }
 
 if (isset($email) && isset($password)) {
-    require 'config.php';
-
-    $verif_email = $pdo->prepare('SELECT * FROM user WHERE email = :email');
-    $verif_email->execute(['email' => $email]);
-
-    if ($verif_email->rowCount() > 0) {
-        echo '<p>This email is already used</p>';
-    } else {
-        $insert = $pdo->prepare('INSERT INTO user (email, password, role) VALUES (:email, :password, :role)');
-        $insert->execute([
-            'email' => $email,
-            'password' => $hashedPassword,
-            'role' => 'User'
-        ]);
-        header('Location: login.php');
-    }
+    // Version démo - affiche un message
+    $signup_message = '<div style="background: #d4edda; padding: 15px; margin: 10px 0; border-radius: 5px; border: 1px solid #28a745;">
+        <strong>✅ Mode Démo</strong><br>
+        L\'inscription nécessite une base de données MySQL connectée.<br>
+        Pour tester, utilisez les comptes démo: <strong>admin@test.com/admin123</strong> ou <strong>user@test.com/user123</strong>
+    </div>';
 }
 ?>
 

@@ -10,26 +10,29 @@ if (isset($_POST['password']) && !empty($_POST['password'])) {
 }
 
 if (isset($email) && isset($password)) {
-    require 'config.php';
-
-    $verif = $pdo->prepare('SELECT * FROM user WHERE email = :email');
-    $verif->execute(['email' => $email]);
-
-    if ($verif->rowCount() === 0) {
-        $error = 'This email is not registered';
-    } else {
-        $user = $verif->fetch(PDO::FETCH_ASSOC);
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'] ?? null;
+    // Version démo - utilisateurs de test
+    $demo_users = [
+        ['email' => 'admin@test.com', 'password' => 'admin123', 'role' => 'Admin'],
+        ['email' => 'user@test.com', 'password' => 'user123', 'role' => 'User']
+    ];
+    
+    $authenticated = false;
+    foreach ($demo_users as $user) {
+        if ($user['email'] === $email && $user['password'] === $password) {
+            $_SESSION['user_id'] = 1;
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
-            header('Location: index.php');
-            exit;
-        } else {
-            $error = 'Invalid credentials';
+            $authenticated = true;
+            break;
         }
     }
-}
+    
+    if (!$authenticated) {
+        $error = 'Email ou mot de passe invalide. Utilisez admin@test.com/admin123 ou user@test.com/user123';
+    } else {
+        header('Location: index.php');
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
