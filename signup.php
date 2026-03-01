@@ -39,6 +39,7 @@ if (isset($email) && isset($password)) {
     ?>
     <main>
         <section class="form-section">
+            <?php if (isset($signup_message)) echo $signup_message; ?>
             <form class="form" action="" method="post">
                 <h1 class="title">Create your account</h1>
                 <input class="text" type="text" name="email" id="email" placeholder="Insert your email">

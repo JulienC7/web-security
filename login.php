@@ -33,6 +33,7 @@ if (isset($email) && isset($password)) {
         header('Location: index.php');
         exit;
     }
+}
 ?>
 
 <!DOCTYPE html>
