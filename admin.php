@@ -15,12 +15,7 @@ if (!isset($_SESSION['admin_post_token'])) {
     }
 }
 
-try {
-    $pdo = new PDO('mysql:host=localhost;dbname=tortue-ninja', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die('Erreur : ' . $e->getMessage());
-}
+require 'config.php';
 // GET ALL POSTS
 $stmtpost = $pdo->query('SELECT id, title, slug, content, image FROM post');
 

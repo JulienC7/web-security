@@ -11,11 +11,7 @@ if (isset($_POST['password']) && !empty($_POST['password'])) {
 }
 
 if (isset($email) && isset($password)) {
-    try {
-        $pdo = new PDO('mysql:host=localhost;dbname=tortue-ninja', 'root', '');
-    } catch (PDOException $e) {
-        die('Erreur : ' . $e->getMessage());
-    }
+    require 'config.php';
 
     $verif_email = $pdo->prepare('SELECT * FROM user WHERE email = :email');
     $verif_email->execute(['email' => $email]);
